@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const competenceController = require('../controllers/competenceController');
+const competenceController = require('../controllers/CompetenceController');
 
 router.get('/blocs/:blocId/competences', competenceController.getAllCompetencesByBloc);
 router.get('/competences/:id', competenceController.getCompetenceById);
