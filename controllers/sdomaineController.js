@@ -1,4 +1,3 @@
-
 const Sdomaine = require('../models/Sdomaine');
 
 exports.getAllSDomainesByDomaine = async (req, res) => {
@@ -22,7 +21,8 @@ exports.getSDomaineById = async (req, res) => {
 
 exports.createSDomaine = async (req, res) => {
   try {
-    const id = await Sdomaine.create(req.body.domaineId, req.body.nom_sdomaine);
+    const { domaineId, nom_sdom, nom_sdom_ar } = req.body;
+    const id = await Sdomaine.create(domaineId, nom_sdom, nom_sdom_ar);
     res.status(201).json({ id_sdom: id });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -31,7 +31,8 @@ exports.createSDomaine = async (req, res) => {
 
 exports.updateSDomaine = async (req, res) => {
   try {
-    const [result] = await Sdomaine.update(req.params.id, req.body.nom_sdom);
+    const { nom_sdom, nom_sdom_ar } = req.body;
+    const result = await Sdomaine.update(req.params.id, nom_sdom, nom_sdom_ar);
     if (result.affectedRows === 0) return res.status(404).json({ error: 'Sous-domaine non trouvé' });
     res.json({ message: 'Sous-domaine mis à jour' });
   } catch (err) {
@@ -41,7 +42,7 @@ exports.updateSDomaine = async (req, res) => {
 
 exports.deleteSDomaine = async (req, res) => {
   try {
-    const [result] = await Sdomaine.delete(req.params.id);
+    const result = await Sdomaine.delete(req.params.id);
     if (result.affectedRows === 0) return res.status(404).json({ error: 'Sous-domaine non trouvé' });
     res.json({ message: 'Sous-domaine supprimé' });
   } catch (err) {

@@ -1,4 +1,3 @@
-
 const Competence = require('../models/Competence');
 
 exports.getAllCompetencesByBloc = async (req, res) => {
@@ -22,7 +21,8 @@ exports.getCompetenceById = async (req, res) => {
 
 exports.createCompetence = async (req, res) => {
   try {
-    const id = await Competence.create(req.body.blocId, req.body.nom_comp);
+    const { blocId, nom_comp, nom_comp_ar } = req.body;
+    const id = await Competence.create(blocId, nom_comp, nom_comp_ar);
     res.status(201).json({ id_comp: id });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -31,7 +31,8 @@ exports.createCompetence = async (req, res) => {
 
 exports.updateCompetence = async (req, res) => {
   try {
-    const [result] = await Competence.update(req.params.id, req.body.nom_comp);
+    const { nom_comp, nom_comp_ar } = req.body;
+    const result = await Competence.update(req.params.id, nom_comp, nom_comp_ar);
     if (result.affectedRows === 0) return res.status(404).json({ error: 'Compétence non trouvée' });
     res.json({ message: 'Compétence mise à jour' });
   } catch (err) {
@@ -41,7 +42,7 @@ exports.updateCompetence = async (req, res) => {
 
 exports.deleteCompetence = async (req, res) => {
   try {
-    const [result] = await Competence.delete(req.params.id);
+    const result = await Competence.delete(req.params.id);
     if (result.affectedRows === 0) return res.status(404).json({ error: 'Compétence non trouvée' });
     res.json({ message: 'Compétence supprimée' });
   } catch (err) {

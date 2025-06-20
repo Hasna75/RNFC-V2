@@ -21,7 +21,8 @@ exports.getSpecialiteById = async (req, res) => {
 
 exports.createSpecialite = async (req, res) => {
   try {
-    const id = await Specialite.create(req.body.sdomaineId, req.body.nom);
+    const { sdomaineId, nom, nom_spe_ar, type_form } = req.body;
+    const id = await Specialite.create(sdomaineId, nom, nom_spe_ar, type_form);
     res.status(201).json({ id_specialite: id });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -30,7 +31,8 @@ exports.createSpecialite = async (req, res) => {
 
 exports.updateSpecialite = async (req, res) => {
   try {
-    const [result] = await Specialite.update(req.params.id, req.body.nom);
+    const { nom, nom_spe_ar, type_form } = req.body;
+    const result = await Specialite.update(req.params.id, nom, nom_spe_ar, type_form);
     if (result.affectedRows === 0) return res.status(404).json({ error: 'Spécialité non trouvée' });
     res.json({ message: 'Spécialité mise à jour' });
   } catch (err) {
@@ -40,7 +42,7 @@ exports.updateSpecialite = async (req, res) => {
 
 exports.deleteSpecialite = async (req, res) => {
   try {
-    const [result] = await Specialite.delete(req.params.id);
+    const result = await Specialite.delete(req.params.id);
     if (result.affectedRows === 0) return res.status(404).json({ error: 'Spécialité non trouvée' });
     res.json({ message: 'Spécialité supprimée' });
   } catch (err) {

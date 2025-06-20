@@ -1,4 +1,3 @@
-
 const db = require('../config/db');
 
 const Specialite = {
@@ -10,15 +9,18 @@ const Specialite = {
     const [rows] = await db.query('SELECT * FROM specialites WHERE id = ?', [id]);
     return rows[0];
   },
-  create: async (sdomaineId, nom,nom_spe_ar,type_form) => {
+  create: async (sdomaineId, nom, nom_spe_ar, type_form) => {
     const [result] = await db.query(
-      'INSERT INTO specialites (id, nom,nom_spe_ar,type_form) VALUES (?, ?,?, ?)', 
-      [sdomaineId, nom,nom_spe_ar,type_form]
+      'INSERT INTO specialites (id_sdom, nom, nom_spe_ar, type_form) VALUES (?, ?, ?, ?)', 
+      [sdomaineId, nom, nom_spe_ar, type_form]
     );
     return result.insertId;
   },
-  update: async (id, nom) => {
-    const [result] = await db.query('UPDATE specialites SET nom = ? nom_spe_ar = ?,type_form = ? WHERE id = ?', [nom,nom_spe_ar,type_form, id]);
+  update: async (id, nom, nom_spe_ar, type_form) => {
+    const [result] = await db.query(
+      'UPDATE specialites SET nom = ?, nom_spe_ar = ?, type_form = ? WHERE id = ?', 
+      [nom, nom_spe_ar, type_form, id]
+    );
     return result;
   },
   delete: async (id) => {

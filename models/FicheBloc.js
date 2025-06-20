@@ -15,15 +15,15 @@ const FicheBloc = {
   },
   create: async (data) => {
     const [result] = await db.query(
-      'INSERT INTO fiche_bloc (id_bloc,objec,modq,modc,debou,duree, nivSc,modFor, sanc) VALUES (?, ?, ?, ?)',
-      [data.id_bloc, data.objec,data.modq,data.modc,data.debou,data.duree, data.nivSc,data.modFor, data.sanc]
+      'INSERT INTO fiche_bloc (id_bloc, objec, modq, modc, debou, duree, nivSc, modFor, sanc) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+      [data.id_bloc, data.objec, data.modq, data.modc, data.debou, data.duree, data.nivSc, data.modFor, data.sanc]
     );
     return result.insertId;
   },
   update: async (id, data) => {
     const [result] = await db.query(
-      'UPDATE fiche_bloc SET objec = ?, modq= ?,modc= ?,debou= ?,duree= ?, nivSc= ?,modFor= ?, sanc= ?  WHERE id_ficheB = ?',
-      [data.objec, data.modq,data.modc,data.debou,data.duree, data.nivSc,data.modFor, data.sanc, id]
+      'UPDATE fiche_bloc SET objec = ?, modq = ?, modc = ?, debou = ?, duree = ?, nivSc = ?, modFor = ?, sanc = ? WHERE id_ficheB = ?',
+      [data.objec, data.modq, data.modc, data.debou, data.duree, data.nivSc, data.modFor, data.sanc, id]
     );
     return result;
   },

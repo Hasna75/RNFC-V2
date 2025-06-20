@@ -1,4 +1,3 @@
-
 const Secteur = require('../models/Secteur');
 
 exports.getAllSecteurs = async (req, res) => {
@@ -22,7 +21,8 @@ exports.getSecteurById = async (req, res) => {
 
 exports.createSecteur = async (req, res) => {
   try {
-    const id = await Secteur.create(req.body.nom_secteur);
+    const { nom_secteur, nom_sect_ar } = req.body;
+    const id = await Secteur.create(nom_secteur, nom_sect_ar);
     res.status(201).json({ id_sect: id });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -31,7 +31,8 @@ exports.createSecteur = async (req, res) => {
 
 exports.updateSecteur = async (req, res) => {
   try {
-    const [result] = await Secteur.update(req.params.id, req.body.nom_sect);
+    const { nom_sect, nom_sect_ar } = req.body;
+    const result = await Secteur.update(req.params.id, nom_sect, nom_sect_ar);
     if (result.affectedRows === 0) return res.status(404).json({ error: 'Secteur non trouvé' });
     res.json({ message: 'Secteur mis à jour' });
   } catch (err) {
@@ -41,7 +42,7 @@ exports.updateSecteur = async (req, res) => {
 
 exports.deleteSecteur = async (req, res) => {
   try {
-    const [result] = await Secteur.delete(req.params.id);
+    const result = await Secteur.delete(req.params.id);
     if (result.affectedRows === 0) return res.status(404).json({ error: 'Secteur non trouvé' });
     res.json({ message: 'Secteur supprimé' });
   } catch (err) {

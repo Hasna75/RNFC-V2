@@ -15,15 +15,15 @@ const FicheCompetence = {
   },
   create: async (data) => {
     const [result] = await db.query(
-      'INSERT INTO fiche_comp (id_comp,objectif,travail,aide ,directive,criteres) VALUES (?, ?, ?, ?, ?, ?)',
-      [data.id_comp, data.objectif,data.travail,data.aide ,data.directive,data.criteres]
+      'INSERT INTO fiche_comp (id_comp, objectif, travail, aide, directive, criteres) VALUES (?, ?, ?, ?, ?, ?)',
+      [data.id_comp, data.objectif, data.travail, data.aide, data.directive, data.criteres]
     );
     return result.insertId;
   },
   update: async (id, data) => {
     const [result] = await db.query(
-      'UPDATE fiche_comp SET detail = ?, niveau_maitrise = ? WHERE id_ficheC = ?',
-      [data.objectif,data.travail,data.aide ,data.directive,data.criteres, id]
+      'UPDATE fiche_comp SET objectif = ?, travail = ?, aide = ?, directive = ?, criteres = ? WHERE id_ficheC = ?',
+      [data.objectif, data.travail, data.aide, data.directive, data.criteres, id]
     );
     return result;
   },
